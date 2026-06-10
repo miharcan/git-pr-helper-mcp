@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "git-pr-helper": {
+      "command": "/home/miharc/work/code/git-pr-helper-mcp/.venv/bin/git-pr-helper-mcp",
+      "args": []
+    }
+  }
+}
