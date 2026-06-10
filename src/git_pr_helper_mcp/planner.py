@@ -48,9 +48,9 @@ def _infer_summary(files: list[str]) -> str:
     return f"Update {len(files)} files"
 
 
-def _pr_body(inspection: RepoInspection, summary: str, files: list[str]) -> str:
+def _pr_body(summary: str, files: list[str], diff_stat: str) -> str:
     file_lines = "\n".join(f"- `{file}`" for file in files)
-    stat = inspection.diff_stat or "No unstaged diff stat available."
+    stat = diff_stat or "No diff stat available for the selected files."
     return (
         "## Summary\n"
         f"- {summary}\n\n"
@@ -85,6 +85,7 @@ def propose_plan(
         raise ValueError(f"Selected files are not currently changed: {missing}")
 
     summary = _infer_summary(selected_files)
+    selected_diff_stat = git_ops.diff_stat_for_paths(Path(inspection.repo_path), selected_files)
     commit = commit_message or summary
     title = pr_title or summary
     base = base_branch or inspection.default_branch
@@ -164,7 +165,7 @@ def propose_plan(
         files_to_stage=selected_files,
         commit_message=commit,
         pr_title=title,
-        pr_body=_pr_body(inspection, summary, selected_files),
+        pr_body=_pr_body(summary, selected_files, selected_diff_stat),
         push=push,
         create_pr=create_pr,
         steps=steps,

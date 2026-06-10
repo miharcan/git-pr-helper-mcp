@@ -88,6 +88,12 @@ def short_diff_stat(repo: Path) -> str:
     return run(["git", "diff", "--stat"], repo)
 
 
+def diff_stat_for_paths(repo: Path, paths: list[str]) -> str:
+    if not paths:
+        return ""
+    return run(["git", "diff", "--stat", "--", *paths], repo)
+
+
 def staged_diff_stat(repo: Path) -> str:
     return run(["git", "diff", "--cached", "--stat"], repo)
 

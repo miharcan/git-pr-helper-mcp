@@ -186,6 +186,10 @@ pytest -q
 ruff check .
 ```
 
+CI runs the same checks on Python 3.10 through 3.13.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
 ## Limitations
 
 - Plans are stored in memory for v1.

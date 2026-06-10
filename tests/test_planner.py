@@ -66,3 +66,13 @@ def test_pr_body_only_lists_selected_files(repo: Path) -> None:
 
     assert "`README.md`" in plan.pr_body
     assert "`notes.txt`" not in plan.pr_body
+
+
+def test_pr_body_diff_stat_only_uses_selected_files(repo: Path) -> None:
+    (repo / "README.md").write_text("# Demo\n\nChanged.\n", encoding="utf-8")
+    (repo / "other.md").write_text("other\n", encoding="utf-8")
+
+    plan = propose_plan(str(repo), files_to_stage=["README.md"], push=False, create_pr=False)
+
+    assert "README.md" in plan.pr_body
+    assert "other.md" not in plan.pr_body

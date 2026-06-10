@@ -7,3 +7,4 @@
 - Add two-phase plan and confirmation workflow.
 - Add optional GitHub PR creation through GitHub CLI.
 - Add tests for repository inspection and plan generation.
+- Add CI workflow and contribution guide.
